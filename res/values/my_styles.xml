@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- vertical divider -->
+    <style name="VerticalDivider">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">1dp</item>
+        <item name="android:background">@color/mainColor</item>
+    </style>
+
+    <!-- Horizontal divider -->
+    <style name="HorizontalDivider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/mainColor</item>
+    </style>
+
+    <!-- match_parent -->
+    <style name="MatchParent">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <!-- wrap_content -->
+    <style name="WrapContent">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!-- TextView -->
+    <style name="TextView" parent="WrapContent">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/tv_normal</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@null</item>
+    </style>
+
+    <style name="TextView.larger">
+        <item name="android:textSize">@dimen/tv_larger</item>
+    </style>
+
+    <!-- TextView in linearLayout -->
+    <style name="TextViewInLinear" parent="TextView">
+        <item name="android:textColor">@color/mainColor</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:paddingLeft">@dimen/padding_small</item>
+        <item name="android:paddingRight">@dimen/padding_small</item>
+        <item name="android:background">@null</item>
+    </style>
+
+    <style name="TextViewInLinear.larger">
+        <item name="android:textSize">@dimen/tv_larger</item>
+    </style>
+
+    <!-- Marquee TextView -->
+    <style name="TextViewMarquee">
+        <item name="android:layout_width">@dimen/spinnerWidth</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:scrollHorizontally">true</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:marqueeRepeatLimit">marquee_forever</item>
+        <item name="android:focusable">true</item>
+        <item name="android:focusableInTouchMode">true</item>
+    </style>
+
+    <!-- EditText -->
+    <style name="EditText" parent="TextView">
+        <item name="android:layout_width">@dimen/et_width</item>
+        <item name="android:background">@drawable/roundrect_nobackground</item>
+        <item name="android:textColor">@color/mainColor</item>
+        <item name="android:textSize">@dimen/tv_small</item>
+    </style>
+
+    <style name="EditText.number">
+        <item name="android:textColor">@color/red</item>
+        <item name="android:inputType">numberDecimal</item>
+        <item name="android:text">0</item>
+        <item name="android:ems">10</item>
+    </style>
+
+    <!-- ImageView -->
+    <style name="ImageView" parent="WrapContent">
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:background">@null</item>
+    </style>
+
+    <!-- ListView -->
+    <style name="ListView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:divider">@color/mainColor</item>
+        <item name="android:listSelector">@color/transDarkOliveGreen</item>
+        <item name="android:dividerHeight">@dimen/gap</item>
+        <item name="android:background">@color/black</item>
+    </style>
+
+    <!-- Spinner -->
+    <style name="Spinner" parent="WrapContent">
+        <item name="android:spinnerMode">dropdown</item>
+        <item name="android:layout_width">@dimen/spinnerWidth</item>
+        <item name="android:textColor">@color/mainColor</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">right|center_vertical</item>
+        <item name="android:background">@null</item>
+    </style>
+
+    <!-- Button -->
+    <style name="Button" parent="TextView">
+        <item name="android:textSize">@dimen/tv_normal</item>
+        <item name="android:textColor">@color/mainColor</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingLeft">@dimen/padding_small</item>
+        <item name="android:paddingRight">@dimen/padding_small</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:background">@drawable/button_selector_color</item>
+    </style>
+
+    <!-- Button.average -->
+    <style name="Button.average">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:paddingTop">@dimen/padding_small</item>
+        <item name="android:paddingBottom">@dimen/padding_small</item>
+    </style>
+
+
+    <!-- Linear -->
+    <style name="Linear" parent="TextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">@dimen/tv_normal</item>
+        <item name="android:paddingTop">@dimen/padding_small</item>
+        <item name="android:paddingBottom">@dimen/padding_small</item>
+        <item name="android:background">@color/transWhite</item>
+    </style>
+
+    <style name="LinearWithHeight" parent="Linear">
+        <item name="android:layout_height">@dimen/linearHeight</item>
+    </style>
+
+</resources>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_dialog"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="@dimen/padding_normal" >
+
+    <TextView
+        android:id="@+id/tv_title"
+        style="@style/Linear"
+        android:gravity="center"
+        android:padding="@dimen/padding_large"
+        android:text="提示信息"
+        android:textColor="@color/mainColor"
+        android:textSize="@dimen/tv_large" />
+
+    <TextView
+        android:id="@+id/tv_titleGap"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/gap"
+        android:background="@color/mainColor"
+        android:paddingLeft="@dimen/padding_normal"
+        android:paddingRight="@dimen/padding_normal" />
+
+    <LinearLayout
+        android:id="@+id/contentView"
+        style="@style/Linear"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/tv_message"
+            style="@style/TextViewInLinear"
+            android:layout_marginLeft="@dimen/margin_normal"
+            android:textColor="@color/mainColor" />
+
+        <EditText
+            android:id="@+id/et_input"
+            style="@style/TextViewInLinear"
+            android:textColor="@color/mainColor" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/Linear"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/btn_OK"
+            style="@style/Button"
+            android:layout_weight="1"
+            android:text="确认"
+            android:textColor="@color/mainColor"
+            android:textSize="@dimen/tv_large" />
+
+        <TextView
+            android:id="@+id/tv_gap"
+            android:layout_width="@dimen/gap"
+            android:layout_height="wrap_content"
+            android:background="@color/mainColor" />
+
+        <Button
+            android:id="@+id/btn_NO"
+            style="@style/Button"
+            android:layout_weight="1"
+            android:text="取消"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="@dimen/tv_large" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,25 @@
+<resources>
+
+    <!-- 纯色 -->
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="blue">#0000FF</color>
+    <color name="red">#FF0000</color>
+    <color name="cyan">#00ffff</color>
+    <color name="green">#00ff00</color>
+    <color name="yellow">#ffff00</color>
+    <color name="orange">#ffa500</color>
+    <color name="lightGray">#d3d3d3</color>
+    <color name="lightBlack">#303030</color>
+    <color name="darkOliveGreen">#556b2f</color>
+    <!-- 透明色 -->
+    <color name="transparent">#00ffffff</color>
+    <color name="transGray">#88f5f5f5</color>
+    <color name="transWhite">#33f5f5f5</color>
+    <color name="transBlack">#dd000000</color>
+    <color name="transBlackNormal">#66000000</color>
+    <color name="transDarkOliveGreen">#aa556b2f</color>
+    <!-- 主题色 -->
+    <color name="mainColor">#ff556b2f</color>
+
+</resources>
