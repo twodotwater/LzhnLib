@@ -2,8 +2,9 @@ package com.lzhn.utils.os;
 
 import java.util.ArrayList;
 
-import android.app.Application;
 import android.support.v4.app.FragmentActivity;
+
+import com.baidu.frontia.FrontiaApplication;
 
 /**
  * 可以捕获运行时异常的application
@@ -11,7 +12,7 @@ import android.support.v4.app.FragmentActivity;
  * @author lzhn
  * 
  */
-public class CatchExcepApplication_v4 extends Application {
+public class CatchExcepApplication_v4 extends FrontiaApplication {
 
 	private ArrayList<FragmentActivity> list = new ArrayList<FragmentActivity>();
 

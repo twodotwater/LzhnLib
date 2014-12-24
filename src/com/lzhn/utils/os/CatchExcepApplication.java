@@ -3,9 +3,10 @@ package com.lzhn.utils.os;
 import java.util.ArrayList;
 
 import android.app.Activity;
-import android.app.Application;
 
-public class CatchExcepApplication extends Application {
+import com.baidu.frontia.FrontiaApplication;
+
+public class CatchExcepApplication extends FrontiaApplication {
 
 	private ArrayList<Activity> list = new ArrayList<Activity>();
 
