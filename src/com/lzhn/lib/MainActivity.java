@@ -8,12 +8,15 @@ import android.widget.TextView;
 import com.lzhn.push.BaiduPushUtils;
 import com.lzhn.slidingmenu.lib.SlidingMenu;
 import com.lzhn.utils.common.AppUtils;
+import com.lzhn.utils.common.Resource;
 import com.lzhn.utils.location.GpsUtils;
 import com.lzhn.utils.os.BaseSlidingActivity;
 import com.lzhn.utils.usb.TransManager;
-import com.lzhn.utils.view.ToastUtils;
 
 public class MainActivity extends BaseSlidingActivity {
+	private int id_tv_info;
+	private static int id_btn_date;
+	private static int id_btn_time;
 	private static TextView tv_info;
 
 	private static TransManager transManager;
@@ -58,7 +61,10 @@ public class MainActivity extends BaseSlidingActivity {
 
 	@Override
 	public void initComponent() {
-		tv_info = initViewById(R.id.tv_info);
+		id_tv_info = Resource.getInstance(this).getIdIdentifier("tv_info");
+		id_btn_date = Resource.getInstance(this).getIdIdentifier("btn_date");
+		id_btn_time = Resource.getInstance(this).getIdIdentifier("btn_time");
+		tv_info = initViewById(id_tv_info);
 	}
 
 	@Override
@@ -68,8 +74,8 @@ public class MainActivity extends BaseSlidingActivity {
 
 	@Override
 	public void onClickComponent(View v) {
-		switch (v.getId()) {
-		case R.id.btn_date:
+		int viewId = v.getId();
+		if (viewId == id_btn_date) {
 			// 日期选择对话框
 			// DatePickerDialogFragment_v4 dialog = new
 			// DatePickerDialogFragment_v4();
@@ -85,8 +91,7 @@ public class MainActivity extends BaseSlidingActivity {
 			// slidingMenu.showMenu(true);
 
 			BaiduPushUtils.initWithApiKey(this, BaiduPushUtils.API_KEY);
-			break;
-		case R.id.btn_time:
+		} else if (viewId == id_btn_time) {
 			// 时间选择对话框、
 			// TimePickerDialogFragment_v4 tDialog = new
 			// TimePickerDialogFragment_v4();
@@ -102,12 +107,7 @@ public class MainActivity extends BaseSlidingActivity {
 			// BaiduPushUtils.startBaiduLoginActivity(true, this, getClass()
 			// .getName());
 			AppUtils.launchOtherApp(this, "com.zzha.contamination");
-			break;
-
-		default:
-			break;
 		}
-		ToastUtils.showToast(this, "onClick !");
 	}
 
 	@Override

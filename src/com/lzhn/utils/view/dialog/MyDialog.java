@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.lzhn.lib.R;
+import com.lzhn.utils.common.Resource;
 import com.lzhn.utils.view.ViewUtils;
 
 /**
@@ -41,6 +42,8 @@ public class MyDialog extends Dialog implements
 	/** 对话框主布局 */
 	private LinearLayout ll_dialog;
 	/** 显示contentView中的子View */
+	private int id_btn_OK;
+	private int id_btn_NO;
 	private View childView;
 	private TextView tv_title;
 	private TextView tv_titleGap;
@@ -98,13 +101,15 @@ public class MyDialog extends Dialog implements
 	}
 
 	private void initViews(View view2) {
+		id_btn_OK = Resource.getInstance(context).getIdIdentifier("btn_OK");
+		id_btn_NO = Resource.getInstance(context).getIdIdentifier("btn_NO");
 		ll_dialog = (LinearLayout) view2.findViewById(R.id.ll_dialog);
 		tv_title = (TextView) view2.findViewById(R.id.tv_title);
 		tv_titleGap = (TextView) view2.findViewById(R.id.tv_titleGap);
 		tv_message = (TextView) view2.findViewById(R.id.tv_message);
 		et_input = (EditText) view2.findViewById(R.id.et_input);
-		btn_OK = (Button) view2.findViewById(R.id.btn_OK);
-		btn_NO = (Button) view2.findViewById(R.id.btn_NO);
+		btn_OK = (Button) view2.findViewById(id_btn_OK);
+		btn_NO = (Button) view2.findViewById(id_btn_NO);
 		tv_gap = (TextView) view2.findViewById(R.id.tv_gap);
 		contentView = (LinearLayout) view2.findViewById(R.id.contentView);
 	}
@@ -382,20 +387,15 @@ public class MyDialog extends Dialog implements
 
 	@Override
 	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.btn_OK:
+		int id = v.getId();
+		if (id == id_btn_OK) {
 			if (onButtonClickListener != null) {
 				onButtonClickListener.onOKClick(this);
 			}
-			break;
-		case R.id.btn_NO:
+		} else if (id == id_btn_NO) {
 			if (onButtonClickListener != null)
 				onButtonClickListener.onNOClick(this);
 			this.dismiss();
-			break;
-
-		default:
-			break;
 		}
 	}
 
