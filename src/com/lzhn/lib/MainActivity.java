@@ -7,8 +7,8 @@ import android.widget.TextView;
 
 import com.lzhn.push.BaiduPushUtils;
 import com.lzhn.slidingmenu.lib.SlidingMenu;
+import com.lzhn.utils.common.AppUtils;
 import com.lzhn.utils.location.GpsUtils;
-import com.lzhn.utils.os.AppUtils;
 import com.lzhn.utils.os.BaseSlidingActivity;
 import com.lzhn.utils.usb.TransManager;
 import com.lzhn.utils.view.ToastUtils;

@@ -1,4 +1,4 @@
-package com.lzhn.utils.os;
+package com.lzhn.utils.common;
 
 import java.io.File;
 import java.util.List;
@@ -14,11 +14,6 @@ import android.net.Uri;
 import android.os.Bundle;
 
 public class AppUtils {
-
-	/** 判断是否安装或覆盖安装的类型 */
-	public static final int INSTALLED_NOT = 0; // 未安装
-	public static final int INSTALLED_NEW = 1; // 已安装且为新版本
-	public static final int INATALLED_OLD = 2; // 已安装但为旧版本
 
 	/**
 	 * 判断应用是否安装或者是否为最新版本
@@ -41,14 +36,14 @@ public class AppUtils {
 				// 找出指定的应用
 				if (packageName.equals(packageInfo.packageName)) {
 					if (packageInfo.versionCode >= versionCode) {
-						return INSTALLED_NEW;
+						return Constant.INSTALLED_NEW;
 					} else {
-						return INATALLED_OLD;
+						return Constant.INATALLED_OLD;
 					}
 				}
 			}
 		}
-		return INSTALLED_NOT;
+		return Constant.INSTALLED_NOT;
 	}
 
 	/**
