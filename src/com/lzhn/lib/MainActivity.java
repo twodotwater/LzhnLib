@@ -5,8 +5,10 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 
+import com.lzhn.push.BaiduPushUtils;
 import com.lzhn.slidingmenu.lib.SlidingMenu;
 import com.lzhn.utils.location.GpsUtils;
+import com.lzhn.utils.os.AppUtils;
 import com.lzhn.utils.os.BaseSlidingActivity;
 import com.lzhn.utils.usb.TransManager;
 import com.lzhn.utils.view.ToastUtils;
@@ -68,29 +70,38 @@ public class MainActivity extends BaseSlidingActivity {
 	public void onClickComponent(View v) {
 		switch (v.getId()) {
 		case R.id.btn_date:
+			// 日期选择对话框
 			// DatePickerDialogFragment_v4 dialog = new
 			// DatePickerDialogFragment_v4();
 			// dialog.show(getSupportFragmentManager(), "datePickerDialog");
 			// SettingsUtils.getInstance(this).setSound();
-
+			// 发送数据到USB
 			// byte[] buffer = "hello world".getBytes();
 			// int len = transManager.send(buffer);
 			// writeInfo(buffer.length + "\tsend:" + len);
 
 			// gpsUtils.openGps();
 
-			slidingMenu.showMenu(true);
+			// slidingMenu.showMenu(true);
+
+			BaiduPushUtils.initWithApiKey(this, BaiduPushUtils.API_KEY);
 			break;
 		case R.id.btn_time:
+			// 时间选择对话框、
 			// TimePickerDialogFragment_v4 tDialog = new
 			// TimePickerDialogFragment_v4();
 			// tDialog.show(getSupportFragmentManager(), "");
-
+			// 接收USB数据
 			// byte[] buffer2 = new byte[16];
 			// int len2 = transManager.read(buffer2);
 			// writeInfo(buffer2.length + "\tread:" + len2);
 
-			slidingMenu.showSecondaryMenu(true);
+			// slidingMenu.showSecondaryMenu(true);
+
+			// BaiduPushUtils.startRichMediaListActivity(this);
+			// BaiduPushUtils.startBaiduLoginActivity(true, this, getClass()
+			// .getName());
+			AppUtils.launchOtherApp(this, "com.zzha.contamination");
 			break;
 
 		default:
