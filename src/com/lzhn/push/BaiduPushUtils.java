@@ -17,6 +17,12 @@ import com.baidu.android.pushservice.PushConstants;
 import com.baidu.android.pushservice.PushManager;
 import com.lzhn.utils.print.LogUtils;
 
+/**
+ * 百度推送辅助工具类
+ * 
+ * @author lzhn
+ * 
+ */
 public class BaiduPushUtils {
 	protected static final String TAG = "BaiduPushUtils";
 

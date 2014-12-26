@@ -92,9 +92,9 @@ public abstract class BaseActivity_v4 extends FragmentActivity implements
 		if (isFullScreen) {
 			requestWindowFeature(Window.FEATURE_NO_TITLE);
 		}
+		initSomeWork();
 		setContentViewLayout();
 		collectCurrentActivity();
-		initSomeWork();
 		initComponent();
 		setListeners();
 		doSomeWork();
