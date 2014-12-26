@@ -5,9 +5,12 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 
-import com.lzhn.push.BaiduPushUtils;
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption.LocationMode;
+import com.lzhn.map.baidu.BaiduLocationUtils;
 import com.lzhn.slidingmenu.lib.SlidingMenu;
-import com.lzhn.utils.common.AppUtils;
 import com.lzhn.utils.common.Resource;
 import com.lzhn.utils.location.GpsUtils;
 import com.lzhn.utils.os.BaseSlidingActivity;
@@ -22,6 +25,8 @@ public class MainActivity extends BaseSlidingActivity {
 	private static TransManager transManager;
 
 	private GpsUtils gpsUtils;
+	private BaiduLocationUtils baiduLocationUtils;
+	private LocationClient locationClient;
 
 	public static void writeInfo(String info) {
 		info = tv_info.getText().toString() + "\n" + info;
@@ -39,6 +44,13 @@ public class MainActivity extends BaseSlidingActivity {
 	protected void onResume() {
 		super.onResume();
 		transManager.registerReceiver();
+		// locationClient.start();
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		locationClient.stop();
 	}
 
 	@Override
@@ -57,6 +69,7 @@ public class MainActivity extends BaseSlidingActivity {
 		super.initSomeWork();
 		transManager = new TransManager(this);
 		gpsUtils = new GpsUtils(this);
+		baiduLocationUtils = new BaiduLocationUtils(this);
 	}
 
 	@Override
@@ -69,7 +82,19 @@ public class MainActivity extends BaseSlidingActivity {
 
 	@Override
 	public void setListeners() {
+		locationClient = baiduLocationUtils.initLocationClient(
+				BaiduLocationUtils.initLocOption(LocationMode.Hight_Accuracy,
+						3000, true), new BDLocationListener() {
 
+					@Override
+					public void onReceiveLocation(BDLocation location) {
+						writeInfo("纬度：" + location.getLatitude() + "经度："
+								+ location.getLongitude());
+						writeInfo(location.getAddrStr());
+						writeInfo(location.getProvince() + location.getCity()
+								+ location.getDistrict());
+					}
+				}, null);
 	}
 
 	@Override
@@ -90,7 +115,9 @@ public class MainActivity extends BaseSlidingActivity {
 
 			// slidingMenu.showMenu(true);
 
-			BaiduPushUtils.initWithApiKey(this, BaiduPushUtils.API_KEY);
+			// BaiduPushUtils.initWithApiKey(this, BaiduPushUtils.API_KEY);
+
+			locationClient.start();
 		} else if (viewId == id_btn_time) {
 			// 时间选择对话框、
 			// TimePickerDialogFragment_v4 tDialog = new
@@ -106,7 +133,9 @@ public class MainActivity extends BaseSlidingActivity {
 			// BaiduPushUtils.startRichMediaListActivity(this);
 			// BaiduPushUtils.startBaiduLoginActivity(true, this, getClass()
 			// .getName());
-			AppUtils.launchOtherApp(this, "com.zzha.contamination");
+			// AppUtils.launchOtherApp(this, "com.zzha.contamination");
+
+			locationClient.stop();
 		}
 	}
 
@@ -119,4 +148,5 @@ public class MainActivity extends BaseSlidingActivity {
 		initSlidingMenu(0, SlidingMenu.LEFT_RIGHT, SlidingMenu.TOUCHMODE_MARGIN);
 		initRightMenu(rightMenuFragment);
 	}
+
 }
