@@ -11,6 +11,11 @@ import com.baidu.location.GeofenceClient.OnGeofenceTriggerListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.location.LocationClientOption.LocationMode;
+import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.BitmapDescriptor;
+import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.MyLocationConfiguration;
+import com.baidu.mapapi.map.MyLocationData;
 import com.lzhn.utils.profile.VibrateUtils;
 
 /**
@@ -23,7 +28,7 @@ public class BaiduLocationUtils {
 	private static final String TAG = "BaiduLocationUtils";
 
 	/** 国测局经纬度坐标系 */
-	public static final String COOR_TYPE_GCJ = BDGeofence.COORD_TYPE_GCJ;
+	public static final String COORD_TYPE_GCJ = BDGeofence.COORD_TYPE_GCJ;
 	/** 百度墨卡托坐标系 */
 	public static final String COORD_TYPE_BD09 = BDGeofence.COORD_TYPE_BD09;
 	/** 百度经纬度坐标系--百度默认 */
@@ -179,5 +184,57 @@ public class BaiduLocationUtils {
 		notifyListener.SetNotifyLocation(latitude, longtitude, distance,
 				coorType == null ? COORD_TYPE_BD09LL : coorType);
 		return notifyListener;
+	}
+
+	/**
+	 * 设置百度地图是否开启定位功能
+	 * 
+	 * @param map
+	 * @param isEnable
+	 */
+	public static void setBaiduMapLocationEnabled(BaiduMap map, boolean isEnable) {
+		map.setMyLocationEnabled(isEnable);
+	}
+
+	/**
+	 * 配置百度地图定位图层显示方式
+	 * 
+	 * @param map
+	 * @param locationMode
+	 *            <li>COMPASS 罗盘态，显示定位方向圈，保持定位图标在地图中心<li>FOLLOWING
+	 *            跟随态，保持定位图标在地图中心 <li>NORMAL 普通态： 更新定位数据时不对地图做任何操作
+	 * @param enableDirection
+	 *            是否允许显示方向信息
+	 * @param markerDrawableId
+	 *            自定义marker图标资源id
+	 */
+	public static void setBaiduMapLocationConfigeration(BaiduMap map,
+			MyLocationConfiguration.LocationMode locationMode,
+			boolean enableDirection, int markerDrawableId) {
+
+		BitmapDescriptor customMarker = null;
+		if (markerDrawableId != 0) {
+			customMarker = BitmapDescriptorFactory
+					.fromResource(markerDrawableId);
+		}
+		map.setMyLocationConfigeration(new MyLocationConfiguration(
+				locationMode, enableDirection, customMarker));
+	}
+
+	/**
+	 * 将com.baidu.location.BDLocation对象转换为com.baidu.mapapi.map.
+	 * MyLocationData定位数据<br/>
+	 * 原因：定位SDK和地图SDK
+	 * 
+	 * @param location
+	 * @return
+	 */
+	public static MyLocationData transBDLocation(BDLocation location) {
+		return new MyLocationData.Builder().accuracy(location.getRadius())
+				.direction(location.getDirection())
+				.latitude(location.getLatitude())
+				.longitude(location.getLongitude())
+				.satellitesNum(location.getSatelliteNumber())
+				.speed(location.getSpeed()).build();
 	}
 }
