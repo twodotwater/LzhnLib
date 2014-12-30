@@ -16,6 +16,10 @@ import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.UiSettings;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.model.LatLngBounds;
+import com.baidu.mapapi.navi.BaiduMapAppNotSupportNaviException;
+import com.baidu.mapapi.navi.BaiduMapNavigation;
+import com.baidu.mapapi.navi.IllegalNaviArgumentException;
+import com.baidu.mapapi.navi.NaviPara;
 import com.baidu.mapapi.overlayutil.PoiOverlay;
 import com.baidu.mapapi.search.busline.BusLineSearch;
 import com.baidu.mapapi.search.busline.BusLineSearchOption;
@@ -35,11 +39,28 @@ import com.baidu.mapapi.search.route.PlanNode;
 import com.baidu.mapapi.search.route.RoutePlanSearch;
 import com.baidu.mapapi.search.route.TransitRoutePlanOption;
 import com.baidu.mapapi.search.route.TransitRoutePlanOption.TransitPolicy;
+import com.baidu.mapapi.search.share.LocationShareURLOption;
+import com.baidu.mapapi.search.share.OnGetShareUrlResultListener;
+import com.baidu.mapapi.search.share.PoiDetailShareURLOption;
+import com.baidu.mapapi.search.share.ShareUrlSearch;
 import com.baidu.mapapi.search.sug.OnGetSuggestionResultListener;
 import com.baidu.mapapi.search.sug.SuggestionSearch;
 import com.baidu.mapapi.search.sug.SuggestionSearchOption;
 
+/**
+ * 百度地图操作工具类<br/>
+ * <b>功能简介：</b> <li>地图操作：旋转、缩放、更新状态……<li>地图UI控制<li>poi检索<li>路径规划、公交线路检索<li>
+ * 地理解码、短串分享
+ * 
+ * @author lzhn
+ * 
+ */
 public class BaiduMapUtils {
+	/** 移动设备上未安装百度地图或百度地图版本较旧 */
+	public static final int NAVIGATION_BAIDU_MAP_APP_NOT_SUPPORT = 1;
+	/** 非法导航参数 */
+	public static final int NAVIGATION_ILLEGAL_ARGUMENT = 2;
+
 	/**
 	 * 获取一个新的MapStatus对象
 	 * 
@@ -462,6 +483,127 @@ public class BaiduMapUtils {
 		return geoCoder.reverseGeoCode(option);
 	}
 
+	/**
+	 * 共享URL查询接口<br/>
+	 * 
+	 * 共享URL是指代表特定信息(poi详情/位置)的一条经过压缩的URL，该URL可通过任何途径传播。
+	 * 当终端用户点击该URL时，该URL所代表的特定信息会通过百度地图(客户端/web)重新呈现
+	 * 
+	 * @param onGetShareUrlResultListener
+	 *            位置分享、poi详情分享检索结果监听者
+	 * @return
+	 */
+	public static ShareUrlSearch getNewShareUrlSearch(
+			OnGetShareUrlResultListener onGetShareUrlResultListener) {
+		ShareUrlSearch search = ShareUrlSearch.newInstance();
+		if (onGetShareUrlResultListener != null)
+			search.setOnGetShareUrlResultListener(onGetShareUrlResultListener);
+		return search;
+	}
+
+	/**
+	 * 请求位置信息分享URL
+	 * 
+	 * @param search
+	 * @param latlng
+	 *            共享点位置
+	 * @param name
+	 *            共享点名称
+	 * @param snippet
+	 *            附加信息。通过短URL调起客户端时作为附加信息显示在名称下面
+	 * @return
+	 */
+	public static boolean requestLocationShareUrl(ShareUrlSearch search,
+			LatLng latlng, String name, String snippet) {
+		LocationShareURLOption option = new LocationShareURLOption()
+				.location(latlng).name(name).snippet(snippet);
+		return search.requestLocationShareUrl(option);
+	}
+
+	/**
+	 * 请求poi详情分享URL
+	 * 
+	 * @param search
+	 * @param uid
+	 *            欲分享的poi的uid
+	 * @return
+	 */
+	public static boolean requestPoiDetailShareUrl(ShareUrlSearch search,
+			String uid) {
+		PoiDetailShareURLOption option = new PoiDetailShareURLOption()
+				.poiUid(uid);
+		return search.requestPoiDetailShareUrl(option);
+	}
+
+	/**
+	 * 调起百度地图客户端导航页面
+	 * 
+	 * @param context
+	 * @param startName
+	 *            导航起点名称
+	 * @param startPoint
+	 *            导航起点， 百度经纬度坐标
+	 * @param endName
+	 *            导航终点名称
+	 * @param endPoint
+	 *            导航终点， 百度经纬度坐标
+	 * @return <li>0：调用成功 <li>
+	 *         {@link BaiduMapUtils#NAVIGATION_BAIDU_MAP_APP_NOT_SUPPORT} <li>
+	 *         {@link BaiduMapUtils#NAVIGATION_ILLEGAL_ARGUMENT}
+	 */
+	public static int openBaiduMapNavi(Context context, String startName,
+			LatLng startPoint, String endName, LatLng endPoint) {
+		NaviPara para = new NaviPara();
+		para.startName = startName == null ? "起点" : startName;
+		para.startPoint = startPoint;
+		para.endName = endName == null ? "终点" : endName;
+		para.endPoint = endPoint;
+		try {
+			BaiduMapNavigation.openBaiduMapNavi(para, context);
+		} catch (BaiduMapAppNotSupportNaviException notSupportNaviException) {
+			return NAVIGATION_BAIDU_MAP_APP_NOT_SUPPORT;
+		} catch (IllegalNaviArgumentException illegalNaviArgumentException) {
+			return NAVIGATION_ILLEGAL_ARGUMENT;
+		}
+		return 0;
+	}
+
+	/**
+	 * 调起百度地图网页导航页面
+	 * 
+	 * @param context
+	 * @param startName
+	 *            导航起点名称
+	 * @param startPoint
+	 *            导航起点， 百度经纬度坐标
+	 * @param endName
+	 *            导航终点名称
+	 * @param endPoint
+	 *            导航终点， 百度经纬度坐标
+	 * @return <li>0：调用成功 <li>
+	 *         {@link BaiduMapUtils#NAVIGATION_ILLEGAL_ARGUMENT}
+	 */
+	public static int openWebBaiduMapNavi(Context context, String startName,
+			LatLng startPoint, String endName, LatLng endPoint) {
+		NaviPara para = new NaviPara();
+		para.startName = startName == null ? "起点" : startName;
+		para.startPoint = startPoint;
+		para.endName = endName == null ? "终点" : endName;
+		para.endPoint = endPoint;
+		try {
+			BaiduMapNavigation.openWebBaiduMapNavi(para, context);
+		} catch (IllegalNaviArgumentException illegalNaviArgumentException) {
+			return NAVIGATION_ILLEGAL_ARGUMENT;
+		}
+		return 0;
+	}
+
+	/**
+	 * 自定义 PoiOverlay 类
+	 * 
+	 * @author lzhn
+	 * 
+	 */
 	static class BaiduPoiOverlay extends PoiOverlay {
 		private OnPoiClickListener onPoiClickListener;
 
