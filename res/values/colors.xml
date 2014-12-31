@@ -21,5 +21,11 @@
     <color name="transDarkOliveGreen">#aa556b2f</color>
     <!-- 主题色 -->
     <color name="mainColor">#ff556b2f</color>
+    <!-- 主题背景色 -->
+    <color name="mainBgColor">#ff556b2f</color>
+    <!-- 次级色 -->
+    <color name="subColor">#ff556b2f</color>
+    <!-- 次级背景色 -->
+    <color name="subBgColor">#ff556b2f</color>
 
 </resources>
