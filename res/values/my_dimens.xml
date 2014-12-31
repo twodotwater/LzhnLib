@@ -30,7 +30,7 @@
     <dimen name="gap_px">1px</dimen>
 
     <!-- 默认侧边栏宽度 -->
-    <dimen name="menu_width">300dp</dimen>
+    <dimen name="menu_width">240dp</dimen>
     <!-- EditText宽度 -->
     <dimen name="et_width">100dp</dimen>
     <!-- linearLayout高度 -->

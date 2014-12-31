@@ -93,9 +93,9 @@ public abstract class BaseSlidingActivity extends SlidingFragmentActivity
 		if (isFullScreen) {
 			requestWindowFeature(Window.FEATURE_NO_TITLE);
 		}
+		initSomeWork();
 		setContentViewLayout();
 		collectCurrentActivity();
-		initSomeWork();
 		initComponent();
 		setListeners();
 		doSomeWork();
