@@ -120,4 +120,17 @@ public class AppUtils {
 				"application/vnd.android.package-archive");
 		context.startActivity(intent);
 	}
+
+	/**
+	 * 卸载应用
+	 * 
+	 * @param context
+	 * @param packageName
+	 *            应用包名
+	 */
+	public static void uninstallApp(Context context, String packageName) {
+		Uri uri = Uri.fromParts("package", packageName, null);
+		Intent intent = new Intent(Intent.ACTION_DELETE, uri);
+		context.startActivity(intent);
+	}
 }
