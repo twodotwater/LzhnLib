@@ -38,7 +38,8 @@ public class BTManager {
 				break;
 			case Constant.WHAT_DISCONNECTEDSOCKET:
 				if (null != onConnectedListener)
-					onConnectedListener.onDisconnected();
+					onConnectedListener
+							.onDisconnected((BluetoothSocket) msg.obj);
 				if (clientThread != null) {
 					clientThread.closeConnection();
 					clientThread = null;
@@ -173,7 +174,7 @@ public class BTManager {
 		 */
 		void onConnected(BluetoothSocket socket);
 
-		void onDisconnected();
+		void onDisconnected(BluetoothSocket socket);
 	}
 
 }

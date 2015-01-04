@@ -105,8 +105,8 @@ public class ClientThread extends Thread {
 			}
 
 		} catch (IOException e) {
-			mHandler.obtainMessage(Constant.WHAT_DISCONNECTEDSOCKET)
-					.sendToTarget();
+			mHandler.obtainMessage(Constant.WHAT_DISCONNECTEDSOCKET,
+					mBluetoothSocket).sendToTarget();
 
 			Log.e(TAG, "--connect-" + e.getLocalizedMessage());
 			// e.printStackTrace();
