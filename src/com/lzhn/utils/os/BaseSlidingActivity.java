@@ -141,7 +141,7 @@ public abstract class BaseSlidingActivity extends SlidingFragmentActivity
 		// slidingMenu.setSecondaryShadowDrawable(R.drawable.shadow);
 		// 设置滑动菜单视图的宽度
 		// slidingMenu.setBehindOffsetRes(menuOffsetResId);
-		menuWidthResId = menuWidthResId == 0 ? R.dimen.menu_width
+		menuWidthResId = menuWidthResId == 0 ? R.dimen.slidingmenu_width
 				: menuWidthResId;
 		slidingMenu.setBehindWidthRes(menuWidthResId);
 		// 设置渐入渐出效果的值

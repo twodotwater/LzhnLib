@@ -24,7 +24,7 @@ public class BTManager {
 	/** {@link ClientThread} */
 	private ClientThread clientThread;
 
-	private OnConnectedListener onConnectedListener;
+	private OnManageConnectionListener onManageConnectionListener;
 	private OnBtChangeListener onBtChangeListener;
 	private OnBtStateChangeListener onBtStateChangeListener;
 	private OnBtDiscoveredListener onBtDiscoveredListener;
@@ -33,17 +33,14 @@ public class BTManager {
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 			case Constant.WHAT_CONNECTEDSOCKET:
-				if (null != onConnectedListener)
-					onConnectedListener.onConnected((BluetoothSocket) msg.obj);
+				if (null != onManageConnectionListener)
+					onManageConnectionListener
+							.onConnected((BluetoothSocket) msg.obj);
 				break;
 			case Constant.WHAT_DISCONNECTEDSOCKET:
-				if (null != onConnectedListener)
-					onConnectedListener
+				if (null != onManageConnectionListener)
+					onManageConnectionListener
 							.onDisconnected((BluetoothSocket) msg.obj);
-				if (clientThread != null) {
-					clientThread.closeConnection();
-					clientThread = null;
-				}
 				break;
 
 			default:
@@ -69,8 +66,9 @@ public class BTManager {
 		return new BTManager(context, btName);
 	}
 
-	public void setOnConnectedListener(OnConnectedListener onConnectedListener) {
-		this.onConnectedListener = onConnectedListener;
+	public void setOnManageConnectionListener(
+			OnManageConnectionListener onManageConnectionListener) {
+		this.onManageConnectionListener = onManageConnectionListener;
 	}
 
 	public void setOnBtChangeListener(OnBtChangeListener onBtChangeListener) {
@@ -91,7 +89,7 @@ public class BTManager {
 	}
 
 	/**
-	 * 判断蓝牙设备是否正确，使用{@link #btName}
+	 * 判断蓝牙设备是否正确（蓝牙名称是否符合预定），使用{@link #btName}
 	 * 
 	 * @param device
 	 */
@@ -129,7 +127,8 @@ public class BTManager {
 		if (BTUtils.isBtEnabled()) {
 			BluetoothDevice device = BTUtils.getBluetoothDevice(
 					BTUtils.getPairedDevices(), btName);
-			if (checkBtDevice(device)) {
+			if (onManageConnectionListener != null
+					&& onManageConnectionListener.onCheckBtDevice(device)) {
 				bondOrConnectBtDevice(device);
 			} else {
 				btUtils.discoverBluetooth();
@@ -141,7 +140,8 @@ public class BTManager {
 	 * 搜索到设备后调用、和蓝牙设备进行配对或建立连接通道
 	 */
 	public void bondOrConnectBtDevice(BluetoothDevice device) {
-		if (!checkBtDevice(device)) {
+		if (onManageConnectionListener == null
+				|| !onManageConnectionListener.onCheckBtDevice(device)) {
 			return;
 		}
 		if (device.getBondState() != BluetoothDevice.BOND_BONDED) {
@@ -166,7 +166,7 @@ public class BTManager {
 	}
 
 	/** 回调接口，客户端-处理蓝牙连接 */
-	public interface OnConnectedListener {
+	public interface OnManageConnectionListener {
 		/**
 		 * 处理蓝牙建立连接后的操作
 		 * 
@@ -175,6 +175,14 @@ public class BTManager {
 		void onConnected(BluetoothSocket socket);
 
 		void onDisconnected(BluetoothSocket socket);
+
+		/**
+		 * 判断蓝牙设备是否匹配
+		 * 
+		 * @param device
+		 * @return true：设备匹配，可以连接；false：不匹配，放弃与此设备连接
+		 */
+		boolean onCheckBtDevice(BluetoothDevice device);
 	}
 
 }

@@ -148,6 +148,57 @@ public class BTUtils extends BroadcastReceiver {
 	}
 
 	/**
+	 * 获取distDevices中所有与srcDevices蓝牙地址不同的设备
+	 * 
+	 * @param srcDevices
+	 * @param distDevices
+	 * @return 返回值不为null
+	 */
+	public static List<BluetoothDevice> getDiffBluetoothDevices(
+			List<BluetoothDevice> srcDevices, List<BluetoothDevice> distDevices) {
+		List<BluetoothDevice> tmpDevices = new ArrayList<BluetoothDevice>();
+		if (distDevices == null || distDevices.size() < 1) {
+			return tmpDevices;
+		}
+		if (srcDevices == null || srcDevices.size() < 1) {
+			return distDevices;
+		}
+		for (BluetoothDevice device : distDevices) {
+			boolean has = false;
+			for (BluetoothDevice device2 : srcDevices) {
+				if (device.getAddress().equals(device2.getAddress())) {
+					has = true;
+					break;
+				}
+			}
+			if (!has) {
+				tmpDevices.add(device);
+			}
+		}
+		return tmpDevices;
+	}
+
+	/**
+	 * 判断list中是否已经包含device设备
+	 * 
+	 * @param srcDevices
+	 * @param device
+	 * @return
+	 */
+	public static boolean isContainedBluetoothDevice(
+			List<BluetoothDevice> srcDevices, BluetoothDevice device) {
+		if (srcDevices == null || srcDevices.size() < 1) {
+			return false;
+		}
+		for (BluetoothDevice device2 : srcDevices) {
+			if (device.getAddress().equals(device2.getAddress())) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
 	 * 启动蓝牙 {@link android.bluetooth.BluetoothAdapter#ACTION_REQUEST_ENABLE}
 	 * 
 	 * @return 打开蓝牙的intent

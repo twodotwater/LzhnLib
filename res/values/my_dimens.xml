@@ -4,11 +4,19 @@
     <!-- 默认尺寸、请不要修改 -->
 
     <!-- 文本大小 -->
-    <dimen name="tv_larger">28sp</dimen>
-    <dimen name="tv_large">20sp</dimen>
+    <dimen name="tv_xxxlarger">40sp</dimen>
+    <dimen name="tv_xxxlarge">36sp</dimen>
+    <dimen name="tv_xxlarger">32sp</dimen>
+    <dimen name="tv_xxlarge">28sp</dimen>
+    <dimen name="tv_xlarger">24sp</dimen>
+    <dimen name="tv_xlarge">22sp</dimen>
+    <dimen name="tv_larger">20sp</dimen>
+    <dimen name="tv_large">18sp</dimen>
     <dimen name="tv_normal">16sp</dimen>
     <dimen name="tv_small">14sp</dimen>
-    <dimen name="tv_smaller">10sp</dimen>
+    <dimen name="tv_smaller">12sp</dimen>
+    <dimen name="tv_xsmall">10sp</dimen>
+    <dimen name="tv_xsmaller">8sp</dimen>
 
     <!-- 控件之间间隔 -->
     <dimen name="margin_larger">40dp</dimen>
@@ -24,26 +32,27 @@
     <dimen name="padding_xlarge">30dp</dimen>
     
     <!-- 圆角半径 -->
+    <dimen name="radius_large">9dp</dimen>
     <dimen name="radius">6dp</dimen>
     <dimen name="radius_small">3dp</dimen>
     <dimen name="gap">1dp</dimen>
     <dimen name="gap_px">1px</dimen>
 
     <!-- 默认侧边栏宽度 -->
-    <dimen name="menu_width">240dp</dimen>
+    <dimen name="slidingmenu_width">240dp</dimen>
     <!-- EditText宽度 -->
-    <dimen name="et_width">100dp</dimen>
+    <dimen name="edittext_width">100dp</dimen>
     <!-- linearLayout高度 -->
-    <dimen name="linearHeight">40dp</dimen>
+    <dimen name="linearlayout_height">40dp</dimen>
     <!-- listView高度 -->
-    <dimen name="listViewHeight">120dp</dimen>
+    <dimen name="listview_height">120dp</dimen>
     <!-- Spinner宽度 -->
-    <dimen name="spinnerWidth">90dp</dimen>
+    <dimen name="spinner_width">90dp</dimen>
     <!-- progressBar高度 -->
-    <dimen name="progressBarHeight">10dp</dimen>
+    <dimen name="progressbar_height">10dp</dimen>
     <!-- 文件选择框宽度 -->
-    <dimen name="fileViewWidth">500dp</dimen>
+    <dimen name="fileview_width">500dp</dimen>
     <!-- 文件选择框宽度 -->
-    <dimen name="fileViewHeight">200dp</dimen>
+    <dimen name="fileview_height">200dp</dimen>
 
 </resources>

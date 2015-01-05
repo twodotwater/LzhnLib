@@ -69,7 +69,7 @@
 
     <!-- Marquee TextView -->
     <style name="TextViewMarquee">
-        <item name="android:layout_width">@dimen/spinnerWidth</item>
+        <item name="android:layout_width">@dimen/spinner_width</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:singleLine">true</item>
         <item name="android:scrollHorizontally">true</item>
@@ -81,7 +81,7 @@
 
     <!-- EditText -->
     <style name="EditText" parent="TextView">
-        <item name="android:layout_width">@dimen/et_width</item>
+        <item name="android:layout_width">@dimen/edittext_width</item>
         <item name="android:background">@drawable/roundrect_nobackground</item>
         <item name="android:textColor">@color/mainColor</item>
         <item name="android:textSize">@dimen/tv_small</item>
@@ -112,7 +112,7 @@
     <!-- Spinner -->
     <style name="Spinner" parent="WrapContent">
         <item name="android:spinnerMode">dropdown</item>
-        <item name="android:layout_width">@dimen/spinnerWidth</item>
+        <item name="android:layout_width">@dimen/spinner_width</item>
         <item name="android:textColor">@color/mainColor</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:gravity">right|center_vertical</item>
@@ -149,7 +149,7 @@
     </style>
 
     <style name="LinearWithHeight" parent="Linear">
-        <item name="android:layout_height">@dimen/linearHeight</item>
+        <item name="android:layout_height">@dimen/linearlayout_height</item>
     </style>
 
 </resources>
