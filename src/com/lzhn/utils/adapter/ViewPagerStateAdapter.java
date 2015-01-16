@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerAdapter;
 
 /**
  * 自定义viewpager适配器
@@ -12,7 +13,7 @@ import android.support.v4.app.FragmentPagerAdapter;
  * @author lzhn
  * 
  */
-public class ViewPagerAdapter extends FragmentPagerAdapter {
+public class ViewPagerStateAdapter extends FragmentStatePagerAdapter {
 	private FragmentManager fm;
 	private ArrayList<Fragment> fragments;
 
@@ -22,13 +23,14 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 	 * @param fm
 	 * @param fragments
 	 */
-	public ViewPagerAdapter(FragmentManager fm, ArrayList<Fragment> fragments) {
+	public ViewPagerStateAdapter(FragmentManager fm,
+			ArrayList<Fragment> fragments) {
 		super(fm);
 		this.fm = fm;
 		setFragments(fragments);
 	}
 
-	public ViewPagerAdapter(FragmentManager fm) {
+	public ViewPagerStateAdapter(FragmentManager fm) {
 		this(fm, null);
 	}
 
@@ -41,6 +43,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 		if (fragments == null)
 			fragments = new ArrayList<Fragment>();
 		this.fragments = fragments;
+		notifyDataSetChanged();
 	}
 
 	@Override
@@ -59,4 +62,8 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 		return 0;
 	}
 
+	@Override
+	public int getItemPosition(Object object) {
+		return PagerAdapter.POSITION_NONE;
+	}
 }

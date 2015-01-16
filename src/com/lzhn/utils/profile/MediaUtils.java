@@ -82,7 +82,7 @@ public class MediaUtils {
 				// mediaPlayer.prepare();
 				mediaPlayer.start();
 			} catch (Exception e) {
-				mediaPlayer = null;
+				mediaPlayer.release();
 				LogUtils.printExcp(TAG, e.getLocalizedMessage());
 			}
 		}
@@ -129,6 +129,7 @@ public class MediaUtils {
 		setPreTime();
 		if (isMediaPlayerPlaying()) {
 			mediaPlayer.stop();
+			mediaPlayer.release();
 		}
 	}
 
@@ -143,6 +144,7 @@ public class MediaUtils {
 				return true;
 			}
 		} catch (Exception e) {
+			mediaPlayer.release();
 			LogUtils.printExcp(TAG, e.getLocalizedMessage());
 		}
 		return false;
