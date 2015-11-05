@@ -39,11 +39,14 @@ public class FileUtils {
 	private static final int WHAT_IOEXCEPTION = 0xe0;
 
 	/** usb存储路径 */
-	private static final String DIRECTORY_USB = "/storage/usb";
+	public static final String DIRECTORY_USB = File.separator + "storage"
+			+ File.separator + "usb";
 	/** 外部存储路径 */
-	private static final String DIRECTORY_EXTERNAL = "/storage/sdcard0";
+	public static final String DIRECTORY_EXTERNAL = File.separator + "storage"
+			+ File.separator + "sdcard0";
 	/** 外部存储路径，插入SD卡 */
-	private static final String DIRECTORY_EXTERNAL_1 = "/storage/sdcard1";
+	public static final String DIRECTORY_EXTERNAL_1 = File.separator
+			+ "storage" + File.separator + "sdcard1";
 
 	/**
 	 * 获取手机存储根目录文件
@@ -78,14 +81,16 @@ public class FileUtils {
 			is = proc.getInputStream();
 			br = new BufferedReader(new InputStreamReader(is));
 			while ((line = br.readLine()) != null) {
-				if (!line.contains("storage"))
-					continue;
-
-				String columns[] = line.split(" ");
-				if (columns != null && columns.length > 1) {
-					pathList.add(columns[1]);
-					LogUtils.printExcp(TAG, columns[1]);
-				}
+				// if (!line.contains("storage"))
+				// continue;
+				//
+				// String columns[] = line.split(" ");
+				// if (columns != null && columns.length > 1) {
+				// pathList.add(columns[1]);
+				// LogUtils.printExcp(TAG, columns[1]);
+				// }
+				LogUtils.printInfo(TAG, line);
+				pathList.add(line);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -124,11 +129,14 @@ public class FileUtils {
 	 *            文件后缀（即文件格式）如（“.txt .jpg”）。为null则显示所有文件
 	 * @param isOnlyFile
 	 *            是否仅显示文件，不显示文件夹。true：仅显示文件；false：显示文件夹
-	 * @return
+	 * @return ArrayList<File>或null
 	 */
 	public static ArrayList<File> getListFiles(String directory,
 			final String suffix, final boolean isOnlyFile) {
 		File fileDirectory = new File(directory);
+		if (!fileDirectory.exists()) {
+			return null;
+		}
 		FileFilter filter = new FileFilter() {// 过滤器
 			@Override
 			public boolean accept(File pathname) {
@@ -145,6 +153,9 @@ public class FileUtils {
 			}
 		};
 		File[] files = fileDirectory.listFiles(filter);// 列出目录下文件
+		if (files == null) {
+			return null;
+		}
 		ArrayList<File> fileList = new ArrayList<File>();
 		for (int i = 0; i < files.length; i++) {
 			fileList.add(files[i]);
